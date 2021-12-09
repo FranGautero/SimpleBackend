@@ -7,4 +7,13 @@ const subscribersRouter = require("./routes/subscribers");
 
 app.use("/subscribers", subscribersRouter);
 
-app.listen(3000, () => console.log("server Started"));
+const port = process.env.PORT;
+
+app.listen(port, () => console.log("server Started"));
+
+process.on("SIGTERM", () => {
+  console.log("SIGTERM received");
+  server.close(() => {
+    console.log("Process terminated");
+  });
+});
